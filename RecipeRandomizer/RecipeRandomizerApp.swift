@@ -10,23 +10,16 @@ import SwiftData
 
 @main
 struct RecipeRandomizerApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
-
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ZStack {
+                Color("Background").ignoresSafeArea()   // global background
+                ContentView()
+            }
+            .tint(Color("Brand"))  // if you set a brand color earlier
         }
-        .modelContainer(sharedModelContainer)
+        .modelContainer(for: Recipe.self)
     }
 }
+
+
